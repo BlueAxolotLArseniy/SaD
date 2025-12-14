@@ -22,6 +22,8 @@ class Player():
         self.abscissa_speed = 0
         self.friction_force = 2
         self.gravity_force = 0
+        
+        self.gravity_force_value_list = [0, 0, 0]
     
     def update(self):
         '''
@@ -37,7 +39,7 @@ class Player():
             self.abscissa_speed -= 20
         if keys[pygame.K_d]:
             self.abscissa_speed += 20
-        if keys[pygame.K_w] or keys[pygame.K_SPACE]:
+        if (keys[pygame.K_w] or keys[pygame.K_SPACE]) and (self.gravity_force_value_list == [1, 0, 1] or self.gravity_force_value_list == [0, 1, 0]):
             self.gravity_force = -consts.PLAYER_JUMP_HIGH
             self.rect.y += self.gravity_force
         
@@ -63,6 +65,10 @@ class Player():
         
         self.gravity_force += consts.GRAVITY
         self.rect.y += self.gravity_force
+        
+        self.gravity_force_value_list[2] = self.gravity_force_value_list[1]
+        self.gravity_force_value_list[1] = self.gravity_force_value_list[0]
+        self.gravity_force_value_list[0] = self.gravity_force
     
     def collision(self, list_of_objects: list):
         for object in list_of_objects:
@@ -70,6 +76,7 @@ class Player():
             if i.colliderect(self.rect):
                 self.rect.y -= self.rect.bottomright[1] - i.topright[1]
                 self.gravity_force = -1
+
 
     def draw(self, screen: pygame.Surface):
         '''

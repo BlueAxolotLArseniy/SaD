@@ -29,7 +29,7 @@ clock = pygame.time.Clock()
 player = player.Player(x = 600,
                        y = 100)
 
-platform = surface.Platform([(700, 400,200, 20),
+platform = surface.Platform([(600, 400,200, 20),
                              (100, 200,200, 20)])
 
 accumulator = 0.0
