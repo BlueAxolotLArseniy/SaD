@@ -39,7 +39,7 @@ class Player():
             self.abscissa_speed -= 20
         if keys[pygame.K_d]:
             self.abscissa_speed += 20
-        if (keys[pygame.K_w] or keys[pygame.K_SPACE]) and (self.gravity_force_value_list == [1, 0, 1] or self.gravity_force_value_list == [0, 1, 0]):
+        if (keys[pygame.K_w] or keys[pygame.K_SPACE]) and self.gravity_force_value_list[0] < self.gravity_force_value_list[1]:
             self.gravity_force = -consts.PLAYER_JUMP_HIGH
             self.rect.y += self.gravity_force
         
