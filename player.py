@@ -5,6 +5,9 @@ import consts
 class Player():
     def __init__(self, x: int, y: int):
         '''
+        
+        Главный персонаж, которым управляет пользователь
+        
         :param x: положение игрока по абсциссе
         :type x: int
         :param y: положение игрока по ординате
@@ -27,6 +30,8 @@ class Player():
         3. 
         '''
         
+        # -------- CONTROL --------
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
             self.abscissa_speed -= 20
@@ -36,20 +41,35 @@ class Player():
             self.gravity_force = -consts.PLAYER_JUMP_HIGH
             self.rect.y += self.gravity_force
         
+        # -------- SLOW DOWN --------
+
         if self.abscissa_speed > 0:
             self.abscissa_speed -= self.friction_force
         if self.abscissa_speed < 0:
             self.abscissa_speed += self.friction_force
+        
+        # -------- SPEED LIMIT --------
         
         if self.abscissa_speed > 20:
             self.abscissa_speed = 20
         elif self.abscissa_speed < -20:
             self.abscissa_speed = -20
         
+        # -------- MOVE --------
+        
         self.rect.x += self.abscissa_speed
+        
+        # -------- FALL --------
         
         self.gravity_force += consts.GRAVITY
         self.rect.y += self.gravity_force
+    
+    def collision(self, list_of_objects: list):
+        for object in list_of_objects:
+            i = pygame.Rect(object)
+            if i.colliderect(self.rect):
+                self.rect.y -= self.rect.bottomright[1] - i.topright[1]
+                self.gravity_force = -1
 
     def draw(self, screen: pygame.Surface):
         '''

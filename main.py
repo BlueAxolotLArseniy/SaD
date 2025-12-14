@@ -5,6 +5,7 @@ import consts
 import game_logic
 import game_render
 import player
+import surface
 
 def tick_calculation():
     global accumulator, last_time
@@ -22,10 +23,14 @@ def tick_calculation():
 pygame.init()
 screen = pygame.display.set_mode((consts.DISPLAY_WEIGHT,
                                   consts.DISPLAY_HIGH))
+pygame.display.set_caption("Stay and Die")
 clock = pygame.time.Clock()
 
 player = player.Player(x = 600,
                        y = 100)
+
+platform = surface.Platform([(700, 400,200, 20),
+                             (100, 200,200, 20)])
 
 accumulator = 0.0
 last_time = time.perf_counter()
@@ -42,7 +47,8 @@ while running:
 
     # -------- LOGIC (TICKS) --------
     while accumulator >= consts.TICK_TIME:
-        game_logic.update_logic(player=player)
+        game_logic.update_logic(player=player,
+                                platform=platform)
         accumulator -= consts.TICK_TIME
 
     # -------- RENDER --------
@@ -50,7 +56,8 @@ while running:
     screen.fill((0, 0, 0))
     
     game_render.render(screen=screen,
-                       player=player)
+                       player=player,
+                       platform=platform)
     
     pygame.display.flip()
 
