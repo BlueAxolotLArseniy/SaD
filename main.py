@@ -20,10 +20,11 @@ def tick_calculation():
     accumulator += delta
     
 pygame.init()
-screen = pygame.display.set_mode((900, 600))
+screen = pygame.display.set_mode((consts.DISPLAY_WEIGHT,
+                                  consts.DISPLAY_HIGH))
 clock = pygame.time.Clock()
 
-player = player.Player(x = 100,
+player = player.Player(x = 600,
                        y = 100)
 
 accumulator = 0.0
@@ -45,13 +46,16 @@ while running:
         accumulator -= consts.TICK_TIME
 
     # -------- RENDER --------
+    
+    screen.fill((0, 0, 0))
+    
     game_render.render(screen=screen,
                        player=player)
     
     pygame.display.flip()
 
     clock.tick(480)  # FPS НЕ ОГРАНИЧИВАЕМ (или tick(144))
-
+    
 
 
 print("Finish")
