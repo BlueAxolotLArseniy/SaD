@@ -1,5 +1,6 @@
-import player
-import surface
+import game.entities.player as player
+import game.entities.surface as surface
+import game.consts as consts
 
 def update_logic(player: player.Player, platform: surface.Platform):
     player.update()
