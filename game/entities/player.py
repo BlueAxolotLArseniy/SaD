@@ -1,9 +1,10 @@
 import pygame
 
-import consts
+import game.consts as consts
+import game.utils.loader as loader
 
 class Player():
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int) -> None:
         '''
         
         Главный персонаж, которым управляет пользователь
@@ -14,7 +15,7 @@ class Player():
         :type y: int
         '''
         
-        self.image = pygame.image.load('textures/player.png').convert()
+        self.image = loader.player_image.convert()
         self.image.set_colorkey((0, 255, 0))
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * 5, self.image.get_height() * 5))
         self.rect = self.image.get_rect(center=(x, y))

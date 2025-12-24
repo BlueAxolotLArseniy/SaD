@@ -3,6 +3,7 @@
         "абциссе",
         "blit",
         "colliderect",
-        "colorkey"
+        "colorkey",
+        "gamerender"
     ]
 }

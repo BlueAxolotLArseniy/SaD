@@ -1,7 +1,7 @@
 import pygame
 
-import player
-import surface
+import game.entities.player as player
+import game.entities.surface as surface
 
 def render(screen: pygame.Surface, 
            player: player.Player,
